@@ -3,7 +3,9 @@ from __future__ import unicode_literals
 
 import logging
 
-from candv import Choices as _Choices, VerboseConstant
+from candv import VerboseConstant
+from candv.base import ConstantsContainer
+
 from django.db.models import SubfieldBase, CharField
 
 
@@ -16,9 +18,39 @@ class ChoiceItem(VerboseConstant):
         return self.name
 
 
-class Choices(_Choices):
+class Choices(ConstantsContainer):
+    """
+    Container of instances of :class:`VerboseConstant` and it's subclasses.
 
+    Provides support for building `Django-compatible <https://docs.djangoproject.com/en/1.6/ref/models/fields/#choices>`_
+    choices.
+    """
+    #: Set `ChoiceItem` as top-level class for this container.
+    #: See `candv.base.ConstantsContainer.constant_class`.
     constant_class = ChoiceItem
+
+    @classmethod
+    def choices(cls):
+        """
+        Get a tuple of tuples representing constant's name and its verbose name.
+
+        :returns: a tuple of constant's names and their verbose names in order
+                  they were defined.
+
+        **Example**::
+
+            >>> from candv import Choices, VerboseConstant
+            >>> class FOO(Choices):
+            ...     ONE = VerboseConstant("first", help_text="first choice")
+            ...     FOUR = VerboseConstant("fourth")
+            ...     THREE = VerboseConstant("third")
+            ...
+            >>> FOO.choices()
+            (('ONE', 'first'), ('FOUR', 'fourth'), ('THREE', 'third'))
+            >>> FOO.get_by_name('ONE').help_text
+            'first choice'
+        """
+        return tuple((name, x.verbose_name) for name, x in cls.items())
 
 
 class ChoicesField(CharField):
