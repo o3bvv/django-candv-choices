@@ -1,15 +1,11 @@
 # -*- coding: utf-8 -*-
-from __future__ import unicode_literals
-
-import logging
-
+"""
+Adds support for custom complex choices for Django models.
+"""
 from candv import VerboseConstant
 from candv.base import ConstantsContainer
 
 from django.db.models import SubfieldBase, CharField
-
-
-LOG = logging.getLogger(__name__)
 
 
 class ChoiceItem(VerboseConstant):
