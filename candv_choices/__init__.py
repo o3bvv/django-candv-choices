@@ -46,7 +46,7 @@ class Choices(ConstantsContainer):
             >>> FOO.get_by_name('ONE').help_text
             'first choice'
         """
-        return tuple((name, x.verbose_name) for name, x in cls.items())
+        return tuple((name, x.verbose_name or name) for name, x in cls.items())
 
 
 class ChoicesField(CharField):
