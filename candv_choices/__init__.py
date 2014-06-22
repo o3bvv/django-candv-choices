@@ -2,8 +2,7 @@
 """
 Adds support for custom complex choices for Django models.
 """
-from candv import VerboseConstant
-from candv.base import ConstantsContainer
+from candv.base import Constant, ConstantsContainer
 
 from django.contrib.admin.filters import (
     FieldListFilter, ChoicesFieldListFilter as _ChoicesFieldListFilter,
@@ -14,67 +13,39 @@ from django.utils.encoding import smart_text
 from django.utils.six import with_metaclass
 from django.utils.translation import ugettext_lazy as _
 
-
-class ChoiceItem(VerboseConstant):
-
-    def __unicode__(self):
-        """
-        This will be used as value for <option> tag.
-        """
-        return self.name
-
-
-class Choices(ConstantsContainer):
-    """
-    Container of instances of :class:`VerboseConstant` and it's subclasses.
-
-    Provides support for building `Django-compatible <https://docs.djangoproject.com/en/1.6/ref/models/fields/#choices>`_
-    choices.
-    """
-    #: Set `ChoiceItem` as top-level class for this container.
-    #: See `candv.base.ConstantsContainer.constant_class`.
-    constant_class = ChoiceItem
-
-    @classmethod
-    def choices(cls):
-        """
-        Get a tuple of tuples representing constant's name and its verbose name.
-
-        :returns: a tuple of constant's names and their verbose names in order
-                  they were defined.
-
-        **Example**::
-
-            >>> from candv import Choices, VerboseConstant
-            >>> class FOO(Choices):
-            ...     ONE = VerboseConstant("first", help_text="first choice")
-            ...     FOUR = VerboseConstant("fourth")
-            ...     THREE = VerboseConstant("third")
-            ...
-            >>> FOO.choices()
-            (('ONE', 'first'), ('FOUR', 'fourth'), ('THREE', 'third'))
-            >>> FOO.get_by_name('ONE').help_text
-            'first choice'
-        """
-        return tuple((name, x.verbose_name or name) for name, x in cls.items())
+from types import MethodType
 
 
 class ChoicesField(with_metaclass(SubfieldBase, CharField)):
-
-    def __init__(self, choices_class, *args, **kwargs):
-        assert issubclass(choices_class, Choices)
-        assert issubclass(choices_class.constant_class, ChoiceItem)
+    """
+    Database field for storying candv-based constants.
+    """
+    def __init__(self, choices, *args, **kwargs):
+        assert issubclass(choices, ConstantsContainer)
+        assert issubclass(choices.constant_class, Constant)
 
         default = kwargs.get('default')
         if default is not None:
-            assert isinstance(default, ChoiceItem)
+            assert isinstance(default, Constant)
             kwargs['default'] = default.name
 
-        kwargs['choices'] = choices_class.choices()
-        kwargs['max_length'] = max(len(x) for x in choices_class.names())
+        self._patch_items(choices)
+        self.choices_class = choices
 
-        self.choices_class = choices_class
+        kwargs.pop('choices', None)
+        kwargs['max_length'] = max(len(x) for x in choices.names())
+
         super(ChoicesField, self).__init__(*args, **kwargs)
+
+    def _patch_items(self, choices):
+
+        def _unicode(self):
+            return self.name
+
+        for constant in choices.iterconstants():
+            #: Render propper value for <option> tag.
+            method = MethodType(_unicode, constant, constant.__class__)
+            setattr(constant, '__unicode__', method)
 
     def to_python(self, value):
         if isinstance(value, self.choices_class.constant_class):
@@ -82,7 +53,7 @@ class ChoicesField(with_metaclass(SubfieldBase, CharField)):
         return self.choices_class.get_by_name(value) if value else value
 
     def get_prep_value(self, value):
-        return value.name if isinstance(value, ChoiceItem) else value
+        return value.name if isinstance(value, Constant) else value
 
     def clean(self, value, model_instance):
         """
@@ -96,13 +67,25 @@ class ChoicesField(with_metaclass(SubfieldBase, CharField)):
         self.run_validators(value)
         return value
 
+    def _get_choices(self):
+        """
+        Redefine standard method.
+        """
+        if not self._choices:
+            self._choices = tuple(
+                (name, getattr(item, 'verbose_name', name) or name)
+                for name, item in self.choices_class.items()
+            )
+        return self._choices
+    choices = property(_get_choices)
+
     def _get_flatchoices(self):
         """
-        Flattened version of choices tuple.
+        Redefine standard method.
 
-        Need to return constants themselves instead of their names for right
-        rendering in admin's 'change_list' view, if field is present in
-        'list_display' attribute of model's admin.
+        Return constants themselves instead of their names for right rendering
+        in admin's 'change_list' view, if field is present in 'list_display'
+        attribute of model's admin.
         """
         return [
             (self.to_python(choice), value) for choice, value in self._choices
@@ -138,6 +121,6 @@ class ChoicesFieldListFilter(_ChoicesFieldListFilter):
                                title)
 
 
-FieldListFilter.register(lambda f: bool(f.choices),
+FieldListFilter.register(lambda field: bool(field.choices),
                          ChoicesFieldListFilter,
                          take_priority=True)
