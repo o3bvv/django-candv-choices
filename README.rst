@@ -165,7 +165,7 @@ Let's examine some simple example and define some constants:
         DELETE = SimpleConstant()
         TRACE = SimpleConstant()
 
-Here we defined a group of constants with no attributes. Look pretty, let's use
+Here we defined a group of constants with no attributes. Looks pretty, let's use
 it:
 
 .. code-block:: python
@@ -277,6 +277,9 @@ data:
     </table>
 
 Not so hard, innit?
+
+You can pass any constants to ``ChoicesField`` from your old projects or
+external libraries. Enjoy!
 
 Caveats
 -------
