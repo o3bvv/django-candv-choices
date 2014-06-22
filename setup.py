@@ -5,6 +5,7 @@ setup(
     version='1.0.0',
     description="Use complex constants built with 'candv' library instead of "
                 "standard 'choices' fields for 'Django' models.",
+    keywords="choices constants Django candv values",
     license='LGPLv3',
     url='https://github.com/oblalex/django-candv-choices',
     author='Alexander Oblovatniy',
