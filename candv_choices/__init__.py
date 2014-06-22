@@ -39,12 +39,13 @@ class ChoicesField(with_metaclass(SubfieldBase, CharField)):
 
     def _patch_items(self, choices):
 
-        def _unicode(self):
+        def _to_string(self):
             return self.name
 
         for constant in choices.iterconstants():
             #: Render propper value for <option> tag.
-            method = MethodType(_unicode, constant, constant.__class__)
+            method = MethodType(_to_string, constant, constant.__class__)
+            setattr(constant, '__str__', method)
             setattr(constant, '__unicode__', method)
 
     def to_python(self, value):

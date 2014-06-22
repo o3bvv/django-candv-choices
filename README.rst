@@ -284,14 +284,27 @@ external libraries. Enjoy!
 Caveats
 -------
 
-# Coming today soon
+* Django admin renders choices by converting them to strings. So,
+  ``__unicode__`` method will be automatically overriden for constant items. It
+  will return the name of the constant. By default, constants in ``candv`` do
+  not have ``__unicode__`` method at all (I cannot find a reason why the should
+  to), so it seems not to be a problem. Just be aware.
+* ``candv`` supports creating constants' `hierarchies`_. If you have some reason
+  to use them as choices for DB field, take into accout that choices will be
+  built only from top-level group of constants.
+* ``candv`` supports Python 2.7, 3.2 and 3.3. This library surely works with 2.7
+  and have to work with the others, but I'm not sure (just no time to check).
 
 
-TODO
-----
+Things to think about
+---------------------
 
-# Coming today soon
-
+* Django has `MultipleChoiceField`_ and `TypedMultipleChoiceField`_. I haven't
+  used used them, but I think it can be useful to implement analogues for
+  'candv', especially for ``MultipleChoiceField``.
+* I think, there is a place to think about implementation of full support of
+  hierarchies. Maybe it's possible to make some nested choices, or at least
+  flatten them.
 
 Changelog
 ---------
@@ -319,5 +332,10 @@ Changelog
 
 .. _candv usage: http://candv.readthedocs.org/en/latest/usage.html#usage
 .. _candv customization: http://candv.readthedocs.org/en/latest/customization.html
+
+.. _hierarchies: http://candv.readthedocs.org/en/latest/usage.html#hierarchies
+
+.. _MultipleChoiceField: https://docs.djangoproject.com/en/1.6/ref/forms/fields/#multiplechoicefield
+.. _TypedMultipleChoiceField: https://docs.djangoproject.com/en/1.6/ref/forms/fields/#typedmultiplechoicefield
 
 .. _1.0.0: https://github.com/oblalex/django-candv-choices/releases/tag/v1.0.0
