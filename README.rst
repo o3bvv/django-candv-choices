@@ -6,13 +6,19 @@ django-candv-choices
 Use complex constants built with `candv`_ library instead of standard `choices`_
 fields for `Django`_ models.
 
-Live demo
----------
-
 Try `online live demo <http://django-candv-choices.herokuapp.com/>`_! Use
 ``demo``/``demo`` as login/pass for authentication.
 
 |Demo preview|
+
+
+**Table of contents**
+
+.. contents::
+    :local:
+    :depth: 1
+    :backlinks: none
+
 
 Installation
 ------------
@@ -134,20 +140,155 @@ filter and load the library to template:
 
 This is madness!
 
+
 Solution
 --------
 
-# Coming today soon
+The solution is to use `candv`_ and this library. The former allows you to
+define stand-alone groups of complex constants and latter allows you to use
+those constants as choises.
 
-Affects
+Let's examine some simple example and define some constants:
+
+.. code-block:: python
+
+    # constants.py
+    from candv import SimpleConstant, Constants
+
+    class METHOD_TYPE(Constants):
+        """
+        Available HTTP methods.
+        """
+        GET = SimpleConstant()
+        PUT = SimpleConstant()
+        POST = SimpleConstant()
+        DELETE = SimpleConstant()
+        TRACE = SimpleConstant()
+
+Here we defined a group of constants with no attributes. Look pretty, let's use
+it:
+
+.. code-block:: python
+
+    # models.py
+    from candv_choices import ChoicesField
+
+    from django.db import models
+    from django.utils.translation import ugettext_lazy as _
+
+    from . constants import METHOD_TYPE
+
+    class Request(models.Model):
+
+        method = ChoicesField(
+            verbose_name=_("method"),
+            help_text=_("Example of simple candv constants"),
+            choices=METHOD_TYPE,
+            blank=False,
+        )
+
+That's all. You can pass some default value if you want,
+e.g. ``default=METHOD_TYPE.GET``.
+
+Now you can render it:
+
+.. code-block:: jinja
+
+    <ul>
+    {% for r in requests %}
+      <li>{{ r.method.name }}</li>
+    {% endfor %}
+    </ul>
+
+The output will contain ``GET``, ``PUT``, ``POST``, etc. Want more? Let's add
+values, verbose names and help texts:
+
+.. code-block:: python
+
+    # constants.py
+    from candv import VerboseValueConstant, Values
+    from django.utils.translation import ugettext_lazy as _
+
+    class RESULT_TYPE(Values):
+        """
+        Possible operation results.
+        """
+        SUCCESS = VerboseValueConstant(
+            value='2C7517',
+            verbose_name=_("Success"),
+            help_text=_("Yay! Everything is good!")
+        )
+        FAILURE = VerboseValueConstant(
+            value='A30D0D',
+            verbose_name=_("Failure"),
+            help_text=_("Oops! Something went wrong!")
+        )
+        PENDING = VerboseValueConstant(
+            value='E09F26',
+            verbose_name=_("Pending"),
+            help_text=_("Still waiting for the task to complete...")
+        )
+
+..
+
+    Please, refer to `candv usage`_ to learn how to define and use constants.
+    You may find `candv customization`_ useful too.
+
+Here we have used `Values`_ as container and `VerboseValueConstant`_ as class
+for items. Each constant has a ``name`` (e.g. ``SUCCESS``), a value, a verbose
+text and a help text. All of this you can access directly from everywhere.
+
+Field definition does not differ much from previous:
+
+.. code-block:: python
+
+    # models.py
+    from candv_choices import ChoicesField
+
+    from django.db import models
+    from django.utils.translation import ugettext_lazy as _
+
+    from . constants import RESULT_TYPE
+
+    class Request(models.Model):
+
+        result = ChoicesField(
+                verbose_name=_("result"),
+                help_text=_("Example of complex candv constants with verbose names, "
+                            "help texts and inner values"),
+                choices=RESULT_TYPE,
+                blank=False,
+                default=RESULT_TYPE.SUCCESS,
+            )
+
+You may use ``blank=True`` if you wish, there's no problem. Let's output our
+data:
+
+.. code-block:: jinja
+
+    <table>
+    {% for r in requests %}
+      <tr>
+        <td style="color: #{{ r.result.value }};" title="{{ r.result.help_text }}">
+          {{ r.result.verbose_name }}
+        </td>
+      </tr>
+    {% endfor %}
+    </table>
+
+Not so hard, innit?
+
+Caveats
 -------
 
 # Coming today soon
+
 
 TODO
 ----
 
 # Coming today soon
+
 
 Changelog
 ---------
@@ -169,5 +310,11 @@ Changelog
 .. _candv: http://candv.readthedocs.org/en/latest/
 .. _choices: https://docs.djangoproject.com/en/1.6/ref/models/fields/#django.db.models.Field.choices
 .. _Django: https://www.djangoproject.com/
+
+.. _Values: http://candv.readthedocs.org/en/latest/candv.html#candv.Values
+.. _VerboseValueConstant: http://candv.readthedocs.org/en/latest/candv.html#candv.VerboseValueConstant
+
+.. _candv usage: http://candv.readthedocs.org/en/latest/usage.html#usage
+.. _candv customization: http://candv.readthedocs.org/en/latest/customization.html
 
 .. _1.0.0: https://github.com/oblalex/django-candv-choices/releases/tag/v1.0.0
