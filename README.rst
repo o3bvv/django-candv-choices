@@ -285,10 +285,10 @@ Caveats
 -------
 
 * Django admin renders choices by converting them to strings. So,
-  ``__unicode__`` method will be automatically overriden for constant items. It
-  will return the name of the constant. By default, constants in ``candv`` do
-  not have ``__unicode__`` method at all (I cannot find a reason why the should
-  to), so it seems not to be a problem. Just be aware.
+  ``__str__`` and ``__unicode__`` methods will be automatically overriden for
+  constant items. It will return the name of the constant. By default, constants
+  in ``candv`` do not have those methods at all (I cannot find a reason why the
+  should to), so it seems not to be a problem. Just be aware.
 * ``candv`` supports creating constants' `hierarchies`_. If you have some reason
   to use them as choices for DB field, take into accout that choices will be
   built only from top-level group of constants.
