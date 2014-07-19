@@ -319,7 +319,7 @@ Changelog
   Initial version
 
 
-.. |PyPi package| image:: http://img.shields.io/pypi/v/verboselib.svg?style=flat
+.. |PyPi package| image:: http://img.shields.io/pypi/v/django-candv-choices.svg?style=flat
    :target: http://badge.fury.io/py/django-candv-choices/
 .. |Downloads| image:: http://img.shields.io/pypi/dm/django-candv-choices.svg?style=flat
    :target: https://crate.io/packages/django-candv-choices/
