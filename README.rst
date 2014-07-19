@@ -343,5 +343,5 @@ Changelog
 .. _MultipleChoiceField: https://docs.djangoproject.com/en/1.6/ref/forms/fields/#multiplechoicefield
 .. _TypedMultipleChoiceField: https://docs.djangoproject.com/en/1.6/ref/forms/fields/#typedmultiplechoicefield
 
-.. _1.1.0: https://github.com/oblalex/django-candv-choices/compare/v1.1.0...v1.0.0
+.. _1.1.0: https://github.com/oblalex/django-candv-choices/compare/v1.0.0...v1.1.0
 .. _1.0.0: https://github.com/oblalex/django-candv-choices/releases/tag/v1.0.0
