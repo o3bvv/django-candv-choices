@@ -171,7 +171,7 @@ it:
 .. code-block:: python
 
     # models.py
-    from candv_choices import ChoicesField
+    from candv_x.django.choices import ChoicesField
 
     from django.db import models
     from django.utils.translation import ugettext_lazy as _
@@ -243,7 +243,7 @@ Field definition does not differ much from previous:
 .. code-block:: python
 
     # models.py
-    from candv_choices import ChoicesField
+    from candv_x.django.choices import ChoicesField
 
     from django.db import models
     from django.utils.translation import ugettext_lazy as _
@@ -309,14 +309,19 @@ Things to think about
 Changelog
 ---------
 
+* `1.1.0`_ (Jul 19, 2014)
+
+  * rename package to ``choices`` and move into ``candv_x.django`` (``x``
+  stands for ``extensions``)
+
 * `1.0.0`_ (Jun 22, 2014)
 
   Initial version
 
 
-.. |PyPi package| image:: https://badge.fury.io/py/django-candv-choices.png
+.. |PyPi package| image:: http://img.shields.io/pypi/v/verboselib.svg?style=flat
    :target: http://badge.fury.io/py/django-candv-choices/
-.. |Downloads| image:: https://pypip.in/d/django-candv-choices/badge.png
+.. |Downloads| image:: http://img.shields.io/pypi/dm/django-candv-choices.svg?style=flat
    :target: https://crate.io/packages/django-candv-choices/
 
 .. |Demo preview| image:: http://i.imgur.com/NXKsgRA.png
@@ -338,4 +343,5 @@ Changelog
 .. _MultipleChoiceField: https://docs.djangoproject.com/en/1.6/ref/forms/fields/#multiplechoicefield
 .. _TypedMultipleChoiceField: https://docs.djangoproject.com/en/1.6/ref/forms/fields/#typedmultiplechoicefield
 
+.. _1.1.0: https://github.com/oblalex/django-candv-choices/compare/v1.1.0...v1.0.0
 .. _1.0.0: https://github.com/oblalex/django-candv-choices/releases/tag/v1.0.0
