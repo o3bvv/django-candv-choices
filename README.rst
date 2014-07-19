@@ -312,7 +312,7 @@ Changelog
 * `1.1.0`_ (Jul 19, 2014)
 
   * rename package to ``choices`` and move into ``candv_x.django`` (``x``
-  stands for ``extensions``)
+    stands for ``extensions``)
 
 * `1.0.0`_ (Jun 22, 2014)
 
