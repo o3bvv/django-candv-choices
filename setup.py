@@ -1,8 +1,19 @@
+# -*- coding: utf-8 -*-
+import os
+
 from setuptools import setup, find_packages
+
+
+__here__ = os.path.abspath(os.path.dirname(__file__))
+
+REQUIREMENTS = [
+    i.strip() for i in
+    open(os.path.join(__here__, 'requirements.txt')).readlines()
+]
 
 setup(
     name='django-candv-choices',
-    version='1.1.0',
+    version='1.1.3',
     description="Use complex constants built with 'candv' library instead of "
                 "standard 'choices' fields for 'Django' models.",
     keywords=[
@@ -16,7 +27,7 @@ setup(
     namespace_packages=[
         'candv_x', 'candv_x.django',
     ],
-    install_requires=[i.strip() for i in open("requirements.txt").readlines()],
+    install_requires=REQUIREMENTS,
     classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Developers',
@@ -25,5 +36,8 @@ setup(
         'Operating System :: OS Independent',
         'Programming Language :: Python :: 2.7',
         'Topic :: Software Development :: Libraries',
+    ],
+    platforms=[
+        'any',
     ],
 )

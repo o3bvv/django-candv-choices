@@ -51,7 +51,7 @@ class ChoicesField(with_metaclass(SubfieldBase, CharField)):
     def to_python(self, value):
         if isinstance(value, self.choices_class.constant_class):
             return value
-        return self.choices_class.get_by_name(value) if value else value
+        return self.choices_class[value] if value else value
 
     def get_prep_value(self, value):
         return value.name if isinstance(value, Constant) else value

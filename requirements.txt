@@ -5,4 +5,4 @@
 #     pip install -r requirements.txt
 
 Django
-candv>=1.1.1
+candv>=1.2.0

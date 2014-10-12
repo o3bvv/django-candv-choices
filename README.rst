@@ -1,10 +1,10 @@
 django-candv-choices
 ====================
 
-|PyPi package| |Downloads|
+|PyPi package| |PyPi downloads| |License|
 
-Use complex constants built with `candv`_ library instead of standard `choices`_
-fields for `Django`_ models.
+Use complex constants built with `candv`_ library instead of standard
+`choices`_ fields for `Django`_ models.
 
 Try `online live demo <http://django-candv-choices.herokuapp.com/>`_! Use
 ``demo``/``demo`` as login/pass for authentication.
@@ -54,9 +54,9 @@ Let's start from defining constants themselves:
     )
 
 Here we define constant names and attach verbose names to them. Bloated
-definition, no docstring for constants group, no docstings per constant. What if
-you need to define some help text per constant? 4 more definitions? Well, then
-just imagine, how you will attach them. And what about other attributes?
+definition, no docstring for constants group, no docstings per constant. What
+if you need to define some help text per constant? 4 more definitions? Well,
+then just imagine, how you will attach them. And what about other attributes?
 And what about adding some methods for constants? How about getting constant by
 its name? By value? And how about performing some operations on the whole
 constants group?
@@ -90,8 +90,9 @@ But OK, let's go further and define some DB model field:
 * you have to import constant group itself;
 * you may have to import dafault value too;
 * you need go back to constants definition, iterate over each constant,
-  calculate its length and select the longest value to pass it as ``max_length``
-  argument. And don't try to make a mistake, or you will be punished otherwise.
+  calculate its length and select the longest value to pass it as
+  ``max_length`` argument. And don't try to make a mistake, or you will be
+  punished otherwise.
 
 I use ``CharField`` here intentionally. It can be good to use ``IntegerField``,
 ``PositiveSmallIntegerField`` and so on, but it is very probable that you will
@@ -165,8 +166,8 @@ Let's examine some simple example and define some constants:
         DELETE = SimpleConstant()
         TRACE = SimpleConstant()
 
-Here we defined a group of constants with no attributes. Looks pretty, let's use
-it:
+Here we defined a group of constants with no attributes. Looks pretty, let's
+use it:
 
 .. code-block:: python
 
@@ -286,14 +287,15 @@ Caveats
 
 * Django admin renders choices by converting them to strings. So,
   ``__str__`` and ``__unicode__`` methods will be automatically overriden for
-  constant items. It will return the name of the constant. By default, constants
-  in ``candv`` do not have those methods at all (I cannot find a reason why the
-  should to), so it seems not to be a problem. Just be aware.
-* ``candv`` supports creating constants' `hierarchies`_. If you have some reason
-  to use them as choices for DB field, take into accout that choices will be
-  built only from top-level group of constants.
-* ``candv`` supports Python 2.7, 3.2 and 3.3. This library surely works with 2.7
-  and have to work with the others, but I'm not sure (just no time to check).
+  constant items. It will return the name of the constant. By default,
+  constants in ``candv`` do not have those methods at all (I cannot find a
+  reason why the should to), so it seems not to be a problem. Just be aware.
+* ``candv`` supports creating constants' `hierarchies`_. If you have some
+  reason to use them as choices for DB field, take into accout that choices
+  will be built only from top-level group of constants.
+* ``candv`` supports Python 2.7, 3.2 and 3.3. This library surely works with
+  2.7 and have to work with the others, but I'm not sure (just no time to
+  check).
 
 
 Things to think about
@@ -309,6 +311,10 @@ Things to think about
 Changelog
 ---------
 
+* `1.1.2`_ (Oct 11, 2014)
+
+  #. ``candv`` dependency updated up to *v1.2.0*.
+
 * `1.1.0`_ (Jul 19, 2014)
 
   * rename package to ``choices`` and move into ``candv_x.django`` (``x``
@@ -321,8 +327,9 @@ Changelog
 
 .. |PyPi package| image:: http://img.shields.io/pypi/v/django-candv-choices.svg?style=flat
    :target: http://badge.fury.io/py/django-candv-choices/
-.. |Downloads| image:: http://img.shields.io/pypi/dm/django-candv-choices.svg?style=flat
+.. |PyPi downloads| image:: http://img.shields.io/pypi/dm/django-candv-choices.svg?style=flat
    :target: https://crate.io/packages/django-candv-choices/
+.. |License| image:: https://img.shields.io/badge/license-LGPLv3-brightgreen.svg?style=flat
 
 .. |Demo preview| image:: http://i.imgur.com/NXKsgRA.png
    :target: http://django-candv-choices.herokuapp.com/
@@ -343,5 +350,6 @@ Changelog
 .. _MultipleChoiceField: https://docs.djangoproject.com/en/1.6/ref/forms/fields/#multiplechoicefield
 .. _TypedMultipleChoiceField: https://docs.djangoproject.com/en/1.6/ref/forms/fields/#typedmultiplechoicefield
 
+.. _1.1.3: https://github.com/oblalex/django-candv-choices/compare/v1.1.0...v1.1.3
 .. _1.1.0: https://github.com/oblalex/django-candv-choices/compare/v1.0.0...v1.1.0
 .. _1.0.0: https://github.com/oblalex/django-candv-choices/releases/tag/v1.0.0
