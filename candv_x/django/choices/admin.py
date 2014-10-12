@@ -1,15 +1,15 @@
 # -*- coding: utf-8 -*-
 from django.contrib.admin.filters import (
-    FieldListFilter, ChoicesFieldListFilter as _ChoicesFieldListFilter,
+    FieldListFilter, ChoicesFieldListFilter as DjangoChoicesFieldListFilter,
 )
 
-from django.utils.encoding import smart_text
+from django.utils.encoding import force_text, smart_text
 from django.utils.translation import ugettext_lazy as _
 
 from .db import ChoicesField
 
 
-class ChoicesFieldListFilter(_ChoicesFieldListFilter):
+class ChoicesFieldListFilter(DjangoChoicesFieldListFilter):
     """
     Redefine standard 'ChoicesFieldListFilter'.
     """
@@ -22,14 +22,13 @@ class ChoicesFieldListFilter(_ChoicesFieldListFilter):
         _choice_item = lambda is_selected, query_string, title: {
             'selected': is_selected,
             'query_string': query_string,
-            'display': title
+            'display': force_text(title),
         }
 
         yield _choice_item(
             self.lookup_val is None,
             cl.get_query_string({}, [self.lookup_kwarg]),
-            _('All')
-        )
+            _('All'))
         container = (self.field.choices
                      if isinstance(self.field, ChoicesField) else
                      self.field.flatchoices)
@@ -37,8 +36,7 @@ class ChoicesFieldListFilter(_ChoicesFieldListFilter):
             yield _choice_item(
                 smart_text(lookup) == self.lookup_val,
                 cl.get_query_string({self.lookup_kwarg: lookup}),
-                title
-            )
+                title)
 
 
 FieldListFilter.register(lambda field: bool(field.choices),

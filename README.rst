@@ -315,6 +315,7 @@ Changelog
 
   * ``candv`` dependency updated up to *v1.2.0*.
   * Add support for South (`#4`_).
+  * Choices' form field can display help text as option's title now (`#1`_).
 
 * `1.1.0`_ (Jul 19, 2014)
 
@@ -352,6 +353,7 @@ Changelog
 .. _TypedMultipleChoiceField: https://docs.djangoproject.com/en/1.6/ref/forms/fields/#typedmultiplechoicefield
 
 .. _#4: https://github.com/oblalex/django-candv-choices/issues/4
+.. _#1: https://github.com/oblalex/django-candv-choices/issues/1
 
 .. _1.1.3: https://github.com/oblalex/django-candv-choices/compare/v1.1.0...v1.1.3
 .. _1.1.0: https://github.com/oblalex/django-candv-choices/compare/v1.0.0...v1.1.0
