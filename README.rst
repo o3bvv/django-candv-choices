@@ -311,14 +311,14 @@ Things to think about
 Changelog
 ---------
 
-* `1.1.2`_ (Oct 11, 2014)
+* `1.1.3`_ (Oct 11, 2014)
 
   #. ``candv`` dependency updated up to *v1.2.0*.
 
 * `1.1.0`_ (Jul 19, 2014)
 
-  * rename package to ``choices`` and move into ``candv_x.django`` (``x``
-    stands for ``extensions``)
+  * rename package to ``choices`` and move into ``candv_x.django``
+    (``x`` stands for ``extensions``)
 
 * `1.0.0`_ (Jun 22, 2014)
 

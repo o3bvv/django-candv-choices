@@ -93,6 +93,15 @@ class ChoicesField(with_metaclass(SubfieldBase, CharField)):
         ]
     flatchoices = property(_get_flatchoices)
 
+    def south_field_triple(self):
+        """
+        Returns a suitable description of this field for South.
+        """
+        from south.modelsinspector import introspector
+        field_class = "django.db.models.fields.CharField"
+        args, kwargs = introspector(self)
+        return (field_class, args, kwargs)
+
 
 class ChoicesFieldListFilter(_ChoicesFieldListFilter):
     """
