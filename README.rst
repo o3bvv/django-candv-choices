@@ -313,7 +313,8 @@ Changelog
 
 * `1.1.3`_ (Oct 11, 2014)
 
-  #. ``candv`` dependency updated up to *v1.2.0*.
+  * ``candv`` dependency updated up to *v1.2.0*.
+  * Add support for South (`#4`_).
 
 * `1.1.0`_ (Jul 19, 2014)
 
@@ -349,6 +350,8 @@ Changelog
 
 .. _MultipleChoiceField: https://docs.djangoproject.com/en/1.6/ref/forms/fields/#multiplechoicefield
 .. _TypedMultipleChoiceField: https://docs.djangoproject.com/en/1.6/ref/forms/fields/#typedmultiplechoicefield
+
+.. _#4: https://github.com/oblalex/django-candv-choices/issues/4
 
 .. _1.1.3: https://github.com/oblalex/django-candv-choices/compare/v1.1.0...v1.1.3
 .. _1.1.0: https://github.com/oblalex/django-candv-choices/compare/v1.0.0...v1.1.0
