@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 
 from itertools import chain
 
 from django.forms.widgets import Widget
 from django.forms.util import flatatt
 from django.utils.encoding import force_text
-from django.utils.html import format_html
+from django.utils.html import escape, conditional_escape
 from django.utils.safestring import mark_safe
 
 
@@ -22,7 +23,7 @@ class Select(Widget):
 
         final_attrs = self.build_attrs(attrs, name=name)
         output = [
-            format_html('<select{0}>', flatatt(final_attrs)),
+            '<select{0}>'.format(flatatt(final_attrs)),
         ]
         options = self.render_options(choices, value)
         if options:
@@ -35,20 +36,22 @@ class Select(Widget):
         selected_choice = force_text(selected_choice)
         output = []
         for value, label, title in chain(self.choices, choices):
+            value = force_text(value)
             ensure_title = (
-                mark_safe(' title="{0}"'.format(force_text(title)))
+                ' title="{0}"'.format(conditional_escape(force_text(title)))
                 if title else
                 '')
             ensure_selected = (
-                mark_safe(' selected="selected"')
+                ' selected="selected"'
                 if value == selected_choice else
                 '')
-            option = format_html(
-                '<option value="{0}"{1}{2}>{3}</option>',
-                value,
-                ensure_title,
-                ensure_selected,
-                force_text(label)
-            )
+            option = (
+                '<option value="{0}"{1}{2}>{3}</option>'
+                .format(
+                    escape(value),
+                    ensure_title,
+                    ensure_selected,
+                    conditional_escape(force_text(label))
+                ))
             output.append(option)
         return '\n'.join(output)
