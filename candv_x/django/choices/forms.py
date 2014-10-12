@@ -2,6 +2,8 @@
 
 import copy
 
+from candv.base import Constant
+
 from django.core import validators
 from django.core.exceptions import ValidationError
 from django.forms.fields import Field, ChoiceField as DjangoChoiceField
@@ -51,6 +53,8 @@ class ChoicesField(Field):
         """
         Check if the provided value is a valid choice.
         """
+        if isinstance(value, Constant):
+            value = value.name
         text_value = force_text(value)
         for option_value, option_label, option_title in self.choices:
             if value == option_value or text_value == force_text(option_value):
@@ -58,8 +62,7 @@ class ChoicesField(Field):
         return False
 
     def _on_invalid_value(self, value):
+        code = 'invalid_choice'
         raise ValidationError(
-            self.error_messages['invalid_choice'],
-            code='invalid_choice',
-            params={'value': value},
-        )
+            self.error_messages[code] % {'value': value},
+            code=code)

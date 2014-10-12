@@ -3,6 +3,8 @@ from __future__ import unicode_literals
 
 from itertools import chain
 
+from candv.base import Constant
+
 from django.forms.widgets import Widget
 from django.forms.util import flatatt
 from django.utils.encoding import force_text
@@ -18,8 +20,11 @@ class Select(Widget):
 
     def render(self, name, value, attrs=None, choices=None):
         choices = choices or ()
+
         if value is None:
             value = ''
+        elif isinstance(value, Constant):
+            value = value.name
 
         final_attrs = self.build_attrs(attrs, name=name)
         output = [
