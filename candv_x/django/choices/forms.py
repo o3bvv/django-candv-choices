@@ -2,6 +2,7 @@
 
 import copy
 
+from django.core import validators
 from django.core.exceptions import ValidationError
 from django.forms.fields import Field, ChoiceField as DjangoChoiceField
 from django.utils.encoding import smart_text, force_text
@@ -29,8 +30,8 @@ class ChoicesField(Field):
         Validates that the value is in self.choices and can be coerced to the
         right type.
         """
-        value = '' if value in self.empty_values else smart_text(value)
-        if value == self.empty_value or value in self.empty_values:
+        value = '' if value in validators.EMPTY_VALUES else smart_text(value)
+        if value == self.empty_value or value in validators.EMPTY_VALUES:
             return self.empty_value
         try:
             value = self.coerce(value)
