@@ -42,7 +42,7 @@ class ChoicesField(with_metaclass(SubfieldBase, CharField)):
 
         for constant in choices.iterconstants():
             #: Render propper value for <option> tag.
-            method = MethodType(_to_string, constant, constant.__class__)
+            method = MethodType(_to_string, constant)
             setattr(constant, '__str__', method)
             setattr(constant, '__unicode__', method)
 
