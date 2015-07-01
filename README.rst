@@ -1,7 +1,7 @@
 django-candv-choices
 ====================
 
-|PyPi package| |PyPi downloads| |License|
+|pypi_package| |pypi_downloads| |python_versions| |license|
 
 Use complex constants built with `candv`_ library instead of standard
 `choices`_ fields for `Django`_ models.
@@ -9,7 +9,7 @@ Use complex constants built with `candv`_ library instead of standard
 Try `online live demo <http://django-candv-choices.herokuapp.com/>`_! Use
 ``demo``/``demo`` as login/pass for authentication.
 
-|Demo preview|
+|demo_preview|
 
 
 **Table of contents**
@@ -290,12 +290,9 @@ Caveats
   constant items. It will return the name of the constant. By default,
   constants in ``candv`` do not have those methods at all (I cannot find a
   reason why the should to), so it seems not to be a problem. Just be aware.
-* ``candv`` supports creating constants' `hierarchies`_. If you have some
+* ``candv`` supports creating `hierarchies of constants`_. If you have some
   reason to use them as choices for DB field, take into accout that choices
   will be built only from top-level group of constants.
-* ``candv`` supports Python 2.7, 3.2 and 3.3. This library surely works with
-  2.7 and have to work with the others, but I'm not sure (just no time to
-  check).
 
 
 Things to think about
@@ -311,29 +308,42 @@ Things to think about
 Changelog
 ---------
 
-* `1.1.3`_ (Oct 11, 2014)
+* `1.1.4`_ (1 Jun, 2015)
+
+  * Added support for Python 3 (`#6`_).
+
+* `1.1.3`_ (11 Oct, 2014)
 
   * ``candv`` dependency updated up to *v1.2.0*.
   * Add support for South (`#4`_).
   * Choices' form field can display help text as option's title now (`#1`_).
 
-* `1.1.0`_ (Jul 19, 2014)
+* `1.1.0`_ (19 Jul, 2014)
 
   * rename package to ``choices`` and move into ``candv_x.django``
     (``x`` stands for ``extensions``)
 
-* `1.0.0`_ (Jun 22, 2014)
+* `1.0.0`_ (22 Jun, 2014)
 
   Initial version
 
 
-.. |PyPi package| image:: http://img.shields.io/pypi/v/django-candv-choices.svg?style=flat
+.. |pypi_package| image:: http://img.shields.io/pypi/v/django-candv-choices.svg?style=flat
    :target: http://badge.fury.io/py/django-candv-choices/
-.. |PyPi downloads| image:: http://img.shields.io/pypi/dm/django-candv-choices.svg?style=flat
-   :target: https://crate.io/packages/django-candv-choices/
-.. |License| image:: https://img.shields.io/badge/license-LGPLv3-brightgreen.svg?style=flat
+   :alt: Version of PyPI package
 
-.. |Demo preview| image:: http://i.imgur.com/NXKsgRA.png
+.. |pypi_downloads| image:: http://img.shields.io/pypi/dm/django-candv-choices.svg?style=flat
+   :target: https://crate.io/packages/django-candv-choices/
+   :alt: Number of downloads of PyPI package
+
+.. |python_versions| image:: https://img.shields.io/badge/Python-2.7,3.4-brightgreen.svg?style=flat
+   :alt: Supported versions of Python
+
+.. |license| image:: https://img.shields.io/badge/license-LGPLv3-blue.svg?style=flat
+   :target: https://github.com/oblalex/django-candv-choices/blob/master/LICENSE
+   :alt: Package license
+
+.. |demo_preview| image:: http://i.imgur.com/NXKsgRA.png
    :target: http://django-candv-choices.herokuapp.com/
    :alt: Live demo screenshot
 
@@ -347,14 +357,16 @@ Changelog
 .. _candv usage: http://candv.readthedocs.org/en/latest/usage.html#usage
 .. _candv customization: http://candv.readthedocs.org/en/latest/customization.html
 
-.. _hierarchies: http://candv.readthedocs.org/en/latest/usage.html#hierarchies
+.. _hierarchies of constants: http://candv.readthedocs.org/en/latest/usage.html#hierarchies
 
 .. _MultipleChoiceField: https://docs.djangoproject.com/en/1.6/ref/forms/fields/#multiplechoicefield
 .. _TypedMultipleChoiceField: https://docs.djangoproject.com/en/1.6/ref/forms/fields/#typedmultiplechoicefield
 
+.. _#6: https://github.com/oblalex/django-candv-choices/issues/6
 .. _#4: https://github.com/oblalex/django-candv-choices/issues/4
 .. _#1: https://github.com/oblalex/django-candv-choices/issues/1
 
+.. _1.1.4: https://github.com/oblalex/django-candv-choices/compare/v1.1.3...v1.1.4
 .. _1.1.3: https://github.com/oblalex/django-candv-choices/compare/v1.1.0...v1.1.3
 .. _1.1.0: https://github.com/oblalex/django-candv-choices/compare/v1.0.0...v1.1.0
 .. _1.0.0: https://github.com/oblalex/django-candv-choices/releases/tag/v1.0.0
