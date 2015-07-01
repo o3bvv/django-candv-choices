@@ -311,6 +311,7 @@ Changelog
 * `1.1.4`_ (1 Jun, 2015)
 
   * Added support for Python 3 (`#6`_).
+  * Added support for migrations in Django >= 1.7 (`#7`_).
 
 * `1.1.3`_ (11 Oct, 2014)
 
@@ -362,6 +363,7 @@ Changelog
 .. _MultipleChoiceField: https://docs.djangoproject.com/en/1.6/ref/forms/fields/#multiplechoicefield
 .. _TypedMultipleChoiceField: https://docs.djangoproject.com/en/1.6/ref/forms/fields/#typedmultiplechoicefield
 
+.. _#7: https://github.com/oblalex/django-candv-choices/issues/7
 .. _#6: https://github.com/oblalex/django-candv-choices/issues/6
 .. _#4: https://github.com/oblalex/django-candv-choices/issues/4
 .. _#1: https://github.com/oblalex/django-candv-choices/issues/1

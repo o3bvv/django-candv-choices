@@ -2,7 +2,7 @@
 from candv.base import Constant, ConstantsContainer
 
 from django.db.models import SubfieldBase, CharField
-from django.utils.six import with_metaclass
+from django.utils.six import with_metaclass, PY2
 from django.utils.text import capfirst
 
 from types import MethodType
@@ -44,7 +44,20 @@ class ChoicesField(with_metaclass(SubfieldBase, CharField)):
             #: Render propper value for <option> tag.
             method = MethodType(_to_string, constant)
             setattr(constant, '__str__', method)
-            setattr(constant, '__unicode__', method)
+            if PY2:
+                setattr(constant, '__unicode__', method)
+
+    def deconstruct(self):
+        name, path, args, kwargs = super(ChoicesField, self).deconstruct()
+
+        del kwargs['max_length']
+        kwargs['choices'] = self.choices_class
+
+        default = kwargs.get('default')
+        if default is not None:
+            kwargs['default'] = self.choices_class[default]
+
+        return name, path, args, kwargs
 
     def to_python(self, value):
         if isinstance(value, self.choices_class.constant_class):
@@ -145,6 +158,8 @@ class ChoicesField(with_metaclass(SubfieldBase, CharField)):
         Returns a suitable description of this field for South.
         """
         from south.modelsinspector import introspector
-        field_class = "django.db.models.fields.CharField"
+
+        field_class = 'django.db.models.fields.CharField'
         args, kwargs = introspector(self)
+
         return (field_class, args, kwargs)
