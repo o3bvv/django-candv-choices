@@ -5,11 +5,18 @@ from itertools import chain
 
 from candv.base import Constant
 
+from django import VERSION as django_version
+
 from django.forms.widgets import Widget
-from django.forms.util import flatatt
 from django.utils.encoding import force_text
 from django.utils.html import escape, conditional_escape
 from django.utils.safestring import mark_safe
+
+# Use old path for form utils if Django version < 1.7
+if django_version[0] <= 1 and django_version[1] < 7:
+    from django.forms.util import flatatt
+else:
+    from django.forms.utils import flatatt
 
 
 class Select(Widget):

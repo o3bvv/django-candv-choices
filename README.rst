@@ -282,6 +282,7 @@ Not so hard, innit?
 You can pass any constants to ``ChoicesField`` from your old projects or
 external libraries. Enjoy!
 
+
 Caveats
 -------
 
@@ -305,13 +306,15 @@ Things to think about
   hierarchies. Maybe it's possible to make some nested choices, or at least
   flatten them.
 
+
 Changelog
 ---------
 
-* `1.1.4`_ (1 Jun, 2015)
+* `1.1.4`_ (2 Jun, 2015)
 
   * Added support for Python 3 (`#6`_).
   * Added support for migrations in Django >= 1.7 (`#7`_).
+  * Imports which will become deprecated in Django 1.9 are not used now.
 
 * `1.1.3`_ (11 Oct, 2014)
 
