@@ -310,7 +310,7 @@ Things to think about
 Changelog
 ---------
 
-* `1.1.4`_ (2 Jun, 2015)
+* `1.1.4`_ (2 Jul, 2015)
 
   * Added support for Python 3 (`#6`_).
   * Added support for migrations in Django >= 1.7 (`#7`_).
