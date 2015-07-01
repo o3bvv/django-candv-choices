@@ -107,8 +107,9 @@ class ChoicesField(with_metaclass(SubfieldBase, CharField)):
             else:
                 defaults['initial'] = self.get_default()
 
-        include_blank = (self.blank or
-                         not (self.has_default() or 'initial' in kwargs))
+        include_blank = (self.blank
+                         or not (self.has_default()
+                                 or 'initial' in kwargs))
 
         choices = [BLANK_CHOICE_DASH, ] if include_blank else []
         choices.extend([
