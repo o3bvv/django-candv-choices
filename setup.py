@@ -14,7 +14,7 @@ REQUIREMENTS = [
 
 setup(
     name='django-candv-choices',
-    version='1.1.4',
+    version='1.1.5',
     description="Use complex constants built with 'candv' library instead of "
                 "standard 'choices' fields for 'Django' models.",
     keywords=[

@@ -310,6 +310,10 @@ Things to think about
 Changelog
 ---------
 
+* `1.1.5`_ (2 Jul, 2015)
+
+  * Fixed usage of default values for migrations in Django >= 1.7 (`#8`_).
+
 * `1.1.4`_ (2 Jul, 2015)
 
   * Added support for Python 3 (`#6`_).
@@ -366,11 +370,13 @@ Changelog
 .. _MultipleChoiceField: https://docs.djangoproject.com/en/1.6/ref/forms/fields/#multiplechoicefield
 .. _TypedMultipleChoiceField: https://docs.djangoproject.com/en/1.6/ref/forms/fields/#typedmultiplechoicefield
 
+.. _#8: https://github.com/oblalex/django-candv-choices/issues/8
 .. _#7: https://github.com/oblalex/django-candv-choices/issues/7
 .. _#6: https://github.com/oblalex/django-candv-choices/issues/6
 .. _#4: https://github.com/oblalex/django-candv-choices/issues/4
 .. _#1: https://github.com/oblalex/django-candv-choices/issues/1
 
+.. _1.1.5: https://github.com/oblalex/django-candv-choices/compare/v1.1.4...v1.1.5
 .. _1.1.4: https://github.com/oblalex/django-candv-choices/compare/v1.1.3...v1.1.4
 .. _1.1.3: https://github.com/oblalex/django-candv-choices/compare/v1.1.0...v1.1.3
 .. _1.1.0: https://github.com/oblalex/django-candv-choices/compare/v1.0.0...v1.1.0
