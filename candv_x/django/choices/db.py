@@ -2,7 +2,7 @@
 from candv.base import Constant, ConstantsContainer
 
 from django.db.models import SubfieldBase, CharField
-from django.utils.six import with_metaclass, PY2
+from django.utils import six
 from django.utils.text import capfirst
 
 from types import MethodType
@@ -14,7 +14,7 @@ from .forms import ChoicesField as ChoicesFormField
 BLANK_CHOICE_DASH = ("", "---------", "")
 
 
-class ChoicesField(with_metaclass(SubfieldBase, CharField)):
+class ChoicesField(six.with_metaclass(SubfieldBase, CharField)):
     """
     Database field for storying candv-based constants.
     """
@@ -24,8 +24,7 @@ class ChoicesField(with_metaclass(SubfieldBase, CharField)):
 
         default = kwargs.get('default')
         if default is not None:
-            assert isinstance(default, Constant)
-            kwargs['default'] = default.name
+            kwargs['default'] = self._process_default(choices, default)
 
         self._patch_items(choices)
         self.choices_class = choices
@@ -34,6 +33,16 @@ class ChoicesField(with_metaclass(SubfieldBase, CharField)):
         kwargs['max_length'] = max(len(x) for x in choices.names())
 
         super(ChoicesField, self).__init__(*args, **kwargs)
+
+    @staticmethod
+    def _process_default(choices, value):
+        if isinstance(value, six.string_types):
+            assert value in choices
+        else:
+            assert isinstance(value, Constant)
+            value = value.name
+
+        return value
 
     def _patch_items(self, choices):
 
@@ -44,18 +53,14 @@ class ChoicesField(with_metaclass(SubfieldBase, CharField)):
             #: Render propper value for <option> tag.
             method = MethodType(_to_string, constant)
             setattr(constant, '__str__', method)
-            if PY2:
+            if six.PY2:
                 setattr(constant, '__unicode__', method)
 
     def deconstruct(self):
         name, path, args, kwargs = super(ChoicesField, self).deconstruct()
 
-        del kwargs['max_length']
         kwargs['choices'] = self.choices_class
-
-        default = kwargs.get('default')
-        if default is not None:
-            kwargs['default'] = self.choices_class[default]
+        del kwargs['max_length']
 
         return name, path, args, kwargs
 
