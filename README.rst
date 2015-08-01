@@ -310,28 +310,34 @@ Things to think about
 Changelog
 ---------
 
-* `1.1.5`_ (2 Jul, 2015)
+*You can click a version name to see a diff with the previous one.*
 
-  * Fixed usage of default values for migrations in Django >= 1.7 (`#8`_).
+* `1.1.5`_ (Aug 1, 2015)
 
-* `1.1.4`_ (2 Jul, 2015)
+  * Fix usage of default values for migrations in Django >= 1.7
+    (`issue #8`_).
+  * Implement field serializer for restframework as a separate library
+    `django-rf-candv-choices`_ (`issue #9`_).
 
-  * Added support for Python 3 (`#6`_).
-  * Added support for migrations in Django >= 1.7 (`#7`_).
+* `1.1.4`_ (Jul 2, 2015)
+
+  * Add support for Python 3 (`issue #6`_).
+  * Add support for migrations in Django >= 1.7 (`issue #7`_).
   * Imports which will become deprecated in Django 1.9 are not used now.
 
-* `1.1.3`_ (11 Oct, 2014)
+* `1.1.3`_ (Oct 11, 2014)
 
   * ``candv`` dependency updated up to *v1.2.0*.
-  * Add support for South (`#4`_).
-  * Choices' form field can display help text as option's title now (`#1`_).
+  * Add support for South (`issue #4`_).
+  * Choices' form field can display help text as option's title now
+    (`issue #1`_).
 
-* `1.1.0`_ (19 Jul, 2014)
+* `1.1.0`_ (Jul 19, 2014)
 
   * rename package to ``choices`` and move into ``candv_x.django``
     (``x`` stands for ``extensions``)
 
-* `1.0.0`_ (22 Jun, 2014)
+* `1.0.0`_ (Jun 22, 2014)
 
   Initial version
 
@@ -358,6 +364,7 @@ Changelog
 .. _candv: http://candv.readthedocs.org/en/latest/
 .. _choices: https://docs.djangoproject.com/en/1.6/ref/models/fields/#django.db.models.Field.choices
 .. _Django: https://www.djangoproject.com/
+.. _django-rf-candv-choices: https://github.com/oblalex/django-rf-candv-choices
 
 .. _Values: http://candv.readthedocs.org/en/latest/candv.html#candv.Values
 .. _VerboseValueConstant: http://candv.readthedocs.org/en/latest/candv.html#candv.VerboseValueConstant
@@ -370,11 +377,12 @@ Changelog
 .. _MultipleChoiceField: https://docs.djangoproject.com/en/1.6/ref/forms/fields/#multiplechoicefield
 .. _TypedMultipleChoiceField: https://docs.djangoproject.com/en/1.6/ref/forms/fields/#typedmultiplechoicefield
 
-.. _#8: https://github.com/oblalex/django-candv-choices/issues/8
-.. _#7: https://github.com/oblalex/django-candv-choices/issues/7
-.. _#6: https://github.com/oblalex/django-candv-choices/issues/6
-.. _#4: https://github.com/oblalex/django-candv-choices/issues/4
-.. _#1: https://github.com/oblalex/django-candv-choices/issues/1
+.. _issue #9: https://github.com/oblalex/django-candv-choices/issues/8
+.. _issue #8: https://github.com/oblalex/django-candv-choices/issues/8
+.. _issue #7: https://github.com/oblalex/django-candv-choices/issues/7
+.. _issue #6: https://github.com/oblalex/django-candv-choices/issues/6
+.. _issue #4: https://github.com/oblalex/django-candv-choices/issues/4
+.. _issue #1: https://github.com/oblalex/django-candv-choices/issues/1
 
 .. _1.1.5: https://github.com/oblalex/django-candv-choices/compare/v1.1.4...v1.1.5
 .. _1.1.4: https://github.com/oblalex/django-candv-choices/compare/v1.1.3...v1.1.4
